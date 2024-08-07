@@ -1,6 +1,6 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Plane } from '@react-three/drei';
+import { Box, OrbitControls, Plane } from '@react-three/drei';
 import * as THREE from 'three';
 
 export const PageVector = () => {
@@ -9,25 +9,35 @@ export const PageVector = () => {
       <Canvas
         gl={{
           antialias: true,
-          alpha: true,
-          stencil: false,
-          depth: false,
           powerPreference: 'high-performance',
-          premultipliedAlpha: false,
-          preserveDrawingBuffer: false,
-          failIfMajorPerformanceCaveat: false,
         }}
       >
-        <directionalLight position={[0, 0, 5]} />
+        <directionalLight position={[5, 5, 5]} />
         <OrbitControls />
-        {/*  */}
-        <Plane
-          rotation={[Math.PI / 4, 0, 0]}
+        {/* 정면 모델파일 ? */}
+        <Box
           castShadow
+          scale={[2, 2, 2]}
           material={
             new THREE.MeshBasicMaterial({
-              color: new THREE.Color('white'),
+              color: new THREE.Color('#f000'),
               side: THREE.DoubleSide,
+            })
+          }
+        />
+
+        {/* 타겟이 바라볼 구. */}
+        {/* 바닥면 */}
+        <Plane
+          rotation={[Math.PI / 2, 0, 0]}
+          position={[0, -2, 0]}
+          castShadow
+          scale={[100, 100, 1.1]}
+          material={
+            new THREE.MeshBasicMaterial({
+              color: new THREE.Color('#8d8b8b'),
+              side: THREE.DoubleSide,
+              // wireframe: true,
             })
           }
         />
